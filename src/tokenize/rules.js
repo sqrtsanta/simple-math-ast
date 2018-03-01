@@ -8,7 +8,7 @@ const transformKeyToRegExp = ({ key, ...rest }) => ({
 });
 
 export const rules = pipe(
-  prop("lexicon"),
+  prop("rules"),
   append(UNKNOWN_RULE),
   map(transformKeyToRegExp)
 );

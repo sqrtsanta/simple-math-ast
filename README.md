@@ -5,7 +5,7 @@
 Simple Math AST serves two purposes:
 
 1. Splitting math expression into the array of smallest units (tokens).
-2. Constructing math AST using tokens
+2. Building Math AST using tokens via Shunting-Yard Algorithm
 
 Read my blog posts about
 
@@ -24,38 +24,67 @@ npm install simple-math-ast
 ### Code example
 
 ```js
+import build from "simple-math-ast";
+
+/**
+ * Provide math expression, pass to function & receive Math AST
+ */
+
+const tree = build("2.5 * x + (sin(pi / 2) / cosx) ^ 3 - 4 * 2");
+
+console.log(tree);
+
+/**
+ * ASTNode {
+ *  token: { value: '-', type: 'OPERATOR', args: 2, precedence: 1 },
+ *  left:
+ *   ASTNode {
+ *     token: { value: '+', type: 'OPERATOR', args: 2, precedence: 1 },
+ *     left: ASTNode { token: [Object], left: [Object], right: [Object] },
+ *     right: ASTNode { token: [Object], left: [Object], right: [Object] } },
+ *  right:
+ *   ASTNode {
+ *     token: { value: ' *', type: 'OPERATOR', args: 2, precedence: 2 },
+ *     left: ASTNode { token: [Object], left: null, right: null },
+ *     right: ASTNode { token: [Object], left: null, right: null } } }
+ */
+```
+
+```js
 import { tokenize } from "simple-math-ast";
 
 /**
- * Provide math expression
+ * Provide math expression, pass to function and receive array of tokens
  */
 
-const tokens = tokenize("2x + siny - (x^2 + 2xy + y^2)");
+const tokens = tokenize("2.5 * x + (sin(pi / 2) / cosx) ^ 3 - 4 * 2");
 
 console.log(tokens);
 
 /**
  * [
- *   { type: 'NUMBER', value: '2' },
- *   { type: 'VARIABLE', value: 'x' },
- *   { type: 'OPERATION', value: '+' },
- *   { type: 'NAMED_FUNCTION', value: 'sin' },
- *   { type: 'VARIABLE', value: 'y' },
- *   { type: 'OPERATION', value: '-' },
- *   { type: 'LEFT_PARENTHESIS', value: '(' },
- *   { type: 'VARIABLE', value: 'x' },
- *   { type: 'OPERATION', value: '^' },
- *   { type: 'NUMBER', value: '2' },
- *   { type: 'OPERATION', value: '+' },
- *   { type: 'NUMBER', value: '2' },
- *   { type: 'VARIABLE', value: 'x' },
- *   { type: 'VARIABLE', value: 'y' },
- *   { type: 'OPERATION', value: '+' },
- *   { type: 'VARIABLE', value: 'y' },
- *   { type: 'OPERATION', value: '^' },
- *   { type: 'NUMBER', value: '2' },
- *   { type: 'RIGHT_PARENTHESIS', value: ')' }
- * ]
+ *  { value: "2.5", type: "NUMBER" },
+ *  { value: "*", type: "OPERATOR", args: 2, precedence: 2 },
+ *  { value: "x", type: "VARIABLE" },
+ *  { value: "+", type: "OPERATOR", args: 2, precedence: 1 },
+ *  { value: "(", type: "LEFT_PARENTHESIS" },
+ *  { value: "sin", type: "NAMED_FUNCTION", args: 1, precedence: 4 },
+ *  { value: "(", type: "LEFT_PARENTHESIS" },
+ *  { value: "pi", type: "CONSTANT" },
+ *  { value: "/", type: "OPERATOR", args: 2, precedence: 2 },
+ *  { value: "2", type: "NUMBER" },
+ *  { value: ")", type: "RIGHT_PARENTHESIS" },
+ *  { value: "/", type: "OPERATOR", args: 2, precedence: 2 },
+ *  { value: "cos", type: "NAMED_FUNCTION", args: 1, precedence: 4 },
+ *  { value: "x", type: "VARIABLE" },
+ *  { value: ")", type: "RIGHT_PARENTHESIS" },
+ *  { value: "^", type: "OPERATOR", args: 2, precedence: 3 },
+ *  { value: "3", type: "NUMBER" },
+ *  { value: "-", type: "OPERATOR", args: 2, precedence: 1 },
+ *  { value: "4", type: "NUMBER" },
+ *  { value: "*", type: "OPERATOR", args: 2, precedence: 2 },
+ *  { value: "2", type: "NUMBER" }
+ * ];
  */
 ```
 

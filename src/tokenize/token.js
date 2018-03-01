@@ -1,9 +1,8 @@
 import { curry, isNil } from "ramda";
 
-export const buildToken = curry((type, value, options = {}) => ({
-  type,
+export const buildToken = curry((data, value) => ({
   value,
-  ...options
+  ...data
 }));
 
 export const isToken = ({ type, value }) => !isNil(type) && !isNil(value);
