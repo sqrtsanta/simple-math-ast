@@ -4,14 +4,14 @@
 
 Simple Math AST serves two purposes:
 
-1. Splitting math expression into the array of smallest units (tokens).
-2. Building Math AST using tokens via Shunting-Yard Algorithm
+1.  Splitting math expression into the array of smallest units (tokens).
+2.  Building Math AST using tokens via Shunting-Yard Algorithm
 
-Read my blog posts about
+Read my blog posts about tokenizer & parser construction
 
-**[Math AST: Tokenizer](https://esimovmiras.com/articles/math-ast-tokenizer)**
+**[Math AST: Tokenizer](https://www.esimovmiras.cc/articles/02-build-math-ast-tokenizer)**
 
-**[Math AST: Parser](https://esimovmiras.com/articles/math-ast-parser)**
+**[Math AST: Parser](https://www.esimovmiras.cc/articles/03-build-math-ast-parser)**
 
 ## Install
 
