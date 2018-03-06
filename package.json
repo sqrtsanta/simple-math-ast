@@ -23,9 +23,16 @@
       "cross-env BABEL_ENV=es NODE_ENV=production rollup src/index.js --config --output dist/simple-math-ast.min.js",
     "prepare": "npm run clean && npm run build"
   },
-  "keywords": [],
+  "keywords": ["math-ast"],
   "author": "Esimov Miras",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Flyr1Q/simple-math-ast"
+  },
+  "bugs": {
+    "url": "https://github.com/Flyr1Q/simple-math-ast/issues"
+  },
   "dependencies": {
     "ramda": "0.25.0"
   },
